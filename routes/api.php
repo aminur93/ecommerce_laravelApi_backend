@@ -27,4 +27,18 @@ Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function (){
     Route::get('category/edit/{id}', 'CategoryController@edit');
     Route::post('category/update/{id}', 'CategoryController@update');
     Route::delete('category/destroy/{id}', 'CategoryController@destroy');
+
+    //Sub category Routes
+    Route::get('sub_category', 'SubCategoryController@index');
+    Route::post('sub_category/store', 'SubCategoryController@store');
+    Route::get('sub_category/edit/{id}', 'SubCategoryController@edit');
+    Route::post('sub_category/update/{id}', 'SubCategoryController@update');
+    Route::delete('sub_category/destroy/{id}', 'SubCategoryController@destroy');
+
+    //Brand Routes
+    Route::get('brand', 'BrandController@index');
+    Route::post('brand/store', 'BrandController@store');
+    Route::get('brand/edit/{id}', 'BrandController@edit');
+    Route::post('brand/update/{id}', 'BrandController@update');
+    Route::delete('brand/destroy/{id}', 'BrandController@destroy');
 });
