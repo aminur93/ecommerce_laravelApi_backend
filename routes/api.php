@@ -41,4 +41,11 @@ Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function (){
     Route::get('brand/edit/{id}', 'BrandController@edit');
     Route::post('brand/update/{id}', 'BrandController@update');
     Route::delete('brand/destroy/{id}', 'BrandController@destroy');
+
+    //Tag Routes
+    Route::get('tag', 'TagController@index');
+    Route::post('tag/store', 'TagController@store');
+    Route::get('tag/edit/{id}', 'TagController@edit');
+    Route::post('tag/update/{id}', 'TagController@update');
+    Route::delete('tag/destroy/{id}', 'TagController@destroy');
 });

@@ -2,46 +2,46 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Brand;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BrandRequest;
+use App\Http\Requests\TagRequest;
+use App\Tag;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class BrandController extends Controller
+class TagController extends Controller
 {
     public function index()
     {
-        $brands = Brand::latest()->get();
+        $tags = Tag::latest()->get();
 
         return response()->json([
-            'brands' => $brands,
+            'tags' => $tags,
             'status_code' => 200
         ],200);
     }
 
-    public function store(BrandRequest $request)
+    public function store(TagRequest $request)
     {
         if ($request->isMethod('post'))
         {
             DB::beginTransaction();
 
             try{
-                //create brand
+                //create tag
 
-                $brand = new Brand();
+                $tag = new Tag();
 
-                $brand->brand_name = $request->brand_name;
-                $brand->brand_slug = Str::slug($request->brand_name);
+                $tag->tag_name = $request->tag_name;
+                $tag->tag_slug = Str::slug($request->tag_name);
 
-                $brand->save();
+                $tag->save();
 
                 DB::commit();
 
                 return response()->json([
-                    'message' => 'Brand Added Successfully',
+                    'message' => 'Tag Added Successfully',
                     'status_code' => 200
                 ],200);
             }catch (QueryException $e){
@@ -59,15 +59,15 @@ class BrandController extends Controller
 
     public function edit($id)
     {
-        $brand = Brand::findOrFail($id);
+        $tag = Tag::findOrFail($id);
 
         return response()->json([
-            'brand' => $brand,
+            'tag' => $tag,
             'status_code' => 200
         ],200);
     }
 
-    public function update(Request $request,$id)
+    public function update(TagRequest $request, $id)
     {
         if ($request->isMethod('post'))
         {
@@ -75,19 +75,19 @@ class BrandController extends Controller
 
             try{
 
-                //update brand
+                //update tag
 
-                $brand = Brand::findOrFail($id);
+                $tag = Tag::findOrFail($id);
 
-                $brand->brand_name = $request->brand_name;
-                $brand->brand_slug = Str::slug($request->brand_name);
+                $tag->tag_name = $request->tag_name;
+                $tag->tag_slug = Str::slug($request->tag_name);
 
-                $brand->save();
+                $tag->save();
 
                 DB::commit();
 
                 return response()->json([
-                    'message' => 'Brand Updated Successfully',
+                    'message' => 'Tag Updated Successfully',
                     'status_code' => 200
                 ],200);
             }catch (QueryException $e){
@@ -105,11 +105,12 @@ class BrandController extends Controller
 
     public function destroy($id)
     {
-        $brand = Brand::findOrFail($id);
-        $brand->delete();
+        $tag = Tag::findOrFail($id);
+        $tag->delete();
 
         return response()->json([
-            'message' => 'Brand Deleted Successfully',
-        ]);
+            'message' => 'Tag Deleted Successfully',
+            'status_code' => 200
+        ],200);
     }
 }
