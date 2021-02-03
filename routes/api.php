@@ -12,11 +12,15 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function (){
         Route::get('me', 'MeController');
     });
 
+    Route::post('forgetPassword', 'ForgetPasswordController@forgetPassword');
+
+    Route::post('changePassword', 'ChangePasswordController@saveResetPassword');
+
 });
 
-// Ecommerce Main Layouts Routes For Customers
-
 // Customers Auth Routes
+
+// Ecommerce Main Layouts Routes For Customers
 
 // DashBoard Routes
 Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function (){
@@ -48,4 +52,6 @@ Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function (){
     Route::get('tag/edit/{id}', 'TagController@edit');
     Route::post('tag/update/{id}', 'TagController@update');
     Route::delete('tag/destroy/{id}', 'TagController@destroy');
+
+    //product routes
 });

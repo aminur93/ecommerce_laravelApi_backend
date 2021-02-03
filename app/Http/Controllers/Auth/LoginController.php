@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    public function login()
+    public function login(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
