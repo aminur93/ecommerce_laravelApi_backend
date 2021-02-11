@@ -30,6 +30,6 @@ class ResetPasswordEmail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->view('email.resetPassword')->with(['token' => $this->token]);
+        return $this->view('email.resetPassword')->with('token', $this->token);
     }
 }

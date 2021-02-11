@@ -20,7 +20,7 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function (){
 
 // Customers Auth Routes
 
-// Ecommerce Main Layouts Routes For Customers
+// E-commerce Main Layouts Routes For Customers
 
 // DashBoard Routes
 Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function (){
@@ -53,5 +53,39 @@ Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function (){
     Route::post('tag/update/{id}', 'TagController@update');
     Route::delete('tag/destroy/{id}', 'TagController@destroy');
 
-    //product routes
+    //product routes colors and sizes and stock etc...
+
+    /*color routes*/
+    Route::get('color', 'ColorController@index');
+    Route::post('color/store', 'ColorController@store');
+    Route::get('color/edit/{id}', 'ColorController@edit');
+    Route::post('color/update/{id}', 'ColorController@update');
+    Route::delete('color/destroy/{id}', 'ColorController@destroy');
+    /*color routes*/
+
+    /*Size Routes*/
+    Route::get('size', 'SizeController@index');
+    Route::post('size/store', 'SizeController@store');
+    Route::get('size/edit/{id}', 'SizeController@edit');
+    Route::post('size/update/{id}', 'SizeController@update');
+    Route::delete('size/destroy/{id}', 'SizeController@destroy');
+    /*Size Routes*/
+
+    /*Origin Routes*/
+    Route::get('origin', 'OriginController@index');
+    Route::post('origin/store', 'OriginController@store');
+    Route::get('origin/edit/{id}', 'OriginController@edit');
+    Route::post('origin/update/{id}', 'OriginController@update');
+    Route::delete('origin/destroy/{id}', 'OriginController@destroy');
+    /*Origin Routes*/
+
+    /*Material Routes*/
+    Route::get('material', 'MaterialController@index');
+    Route::post('material/store', 'MaterialController@store');
+    Route::get('material/edit/{id}', 'MaterialController@edit');
+    Route::post('material/update/{id}', 'MaterialController@update');
+    Route::delete('material/destroy/{id}', 'MaterialController@destroy');
+    /*Material Routes*/
+
+    //product routes colors and sizes and stock etc...
 });

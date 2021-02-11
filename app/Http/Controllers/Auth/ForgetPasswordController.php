@@ -16,6 +16,10 @@ class ForgetPasswordController extends Controller
 {
     public function forgetPassword(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
         if (!$this->validateEmail($request->email))
         {
             return $this->faildResponse();
@@ -49,7 +53,7 @@ class ForgetPasswordController extends Controller
         return $token;
     }
 
-    public function saveToken($token, $email)
+    public function saveToken($email,$token)
     {
         DB::table('password_resets')->insert([
             'email' => $email,

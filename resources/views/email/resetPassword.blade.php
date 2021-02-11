@@ -21,7 +21,7 @@
     <tr>
         <td>
             @if(isset($token))
-                <a href="http://localhost:8080/reset-password?token={{ $token->token }}">Reset Password</a>
+                <a href="http://localhost:8080/reset-password?token=<?= $token; ?>">Reset Password</a>
             @endif
         </td>
     </tr>
