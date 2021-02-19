@@ -87,5 +87,16 @@ Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function (){
     Route::delete('material/destroy/{id}', 'MaterialController@destroy');
     /*Material Routes*/
 
+    /*Product Routes*/
+    Route::get('product','ProductController@index');
+    Route::post('product/store','ProductController@store');
+    Route::get('product/edit/{id}','ProductController@edit');
+    Route::post('product/update/{id}','ProductController@update');
+    Route::delete('product/destroy/{id}','ProductController@destroy');
+
+    Route::get('product/getSubCategory/{category_id}','ProductController@getSubCategories');
+    Route::post('product/feature/{product_id}','ProductController@feature');
+    /*Product Routes*/
+
     //product routes colors and sizes and stock etc...
 });

@@ -24,4 +24,18 @@ class SubCategory extends Model
 
         return $sub_categories;
     }
+
+    public static function getSubCat($category_id)
+    {
+        $subCat = DB::table('sub_categories')
+            ->select(
+                'sub_categories.id as id',
+                'sub_categories.sub_cat_name as sub_cat_name'
+            )
+            ->join('categories','sub_categories.category_id','=','categories.id')
+            ->where('sub_categories.category_id', $category_id)
+            ->get();
+
+        return $subCat;
+    }
 }
