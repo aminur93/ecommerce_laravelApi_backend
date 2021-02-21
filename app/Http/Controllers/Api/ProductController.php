@@ -359,7 +359,7 @@ class ProductController extends Controller
                 {
                     $image_tmp = $value;
                     $name=$value->getClientOriginalName();
-                    $filename = rand(111,99999).'.'.$name;
+                    $filename = $name;
 
                     $original_image_path = public_path().'/assets/admin/uploads/original_image/'.$filename;
                     $large_path = public_path().'/assets/admin/uploads/large/'.$filename;
@@ -405,7 +405,58 @@ class ProductController extends Controller
         {
             //update product Images
 
+            try{
 
+                //update product image
+
+                $product_image = ProductImage::findOrFail($image_id);
+
+                $product_image->product_id = $request->product_id;
+
+                if($request->hasFile('image')){
+
+                    $image_tmp = $request->file('image');
+                    if($image_tmp->isValid()){
+                        $extension = $image_tmp->getClientOriginalName();
+                        $filename = $extension;
+
+                        $original_image_path = public_path().'/assets/admin/uploads/original_image/'.$filename;
+                        $large_image_path = public_path().'/assets/admin/uploads/large/'.$filename;
+                        $medium_image_path = public_path().'/assets/admin/uploads/medium/'.$filename;
+                        $small_image_path = public_path().'/assets/admin/uploads/small/'.$filename;
+
+                        //Resize Image
+                        Image::make($image_tmp)->save($original_image_path);
+                        Image::make($image_tmp)->resize(1920,680)->save($large_image_path);
+                        Image::make($image_tmp)->resize(1000,529)->save($medium_image_path);
+                        Image::make($image_tmp)->resize(500,529)->save($small_image_path);
+                    }
+                }else{
+                    $filename = $request->current_image;
+                }
+
+                $product_image->image = $filename;
+
+                $product_image->save();
+
+                DB::commit();
+
+                return \response()->json([
+                    'message' => 'Product Image Updated Successful',
+                    'status_code' => 200
+                ],Response::HTTP_OK);
+
+
+            }catch (QueryException $e){
+                DB::rollBack();
+
+                $error = $e->getMessage();
+
+                return \response()->json([
+                    'error' => $error,
+                    'status_code' => 500
+                ], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
         }
     }
 
