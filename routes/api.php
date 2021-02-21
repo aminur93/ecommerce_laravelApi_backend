@@ -96,6 +96,15 @@ Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function (){
 
     Route::get('product/getSubCategory/{category_id}','ProductController@getSubCategories');
     Route::post('product/feature/{product_id}','ProductController@feature');
+    Route::post('product/approve/{product_id}','ProductController@approve');
+    Route::post('product/publish/{product_id}','ProductController@publish');
+    Route::post('product/deleteProductImage/{id}','ProductController@deleteProductImage');
+
+    Route::get('product/image/{product_id}','ProductController@getImage');
+    Route::post('product/image/create','ProductController@imageStore');
+    Route::get('product/image/edit/{image_id}','ProductController@imageEdit');
+    Route::post('product/image/update/{image_id}','ProductController@imageUpdate');
+    Route::delete('product/image/destroy/{image_id}','ProductController@imageDestroy');
     /*Product Routes*/
 
     //product routes colors and sizes and stock etc...

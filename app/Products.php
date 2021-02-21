@@ -28,4 +28,19 @@ class Products extends Model
 
         return $products;
     }
+
+    public static function getEditProduct($id)
+    {
+        $product = DB::table('products')
+            ->select(
+                'products.*',
+                'sub_categories.category_id as sub_category_id'
+            )
+            ->join('sub_categories','products.sub_cat_id','=','sub_categories.id')
+            ->where('products.id',$id)
+            ->first();
+        return $product;
+    }
+
+
 }
